@@ -15,6 +15,6 @@ public class WelcomeRouter {
     @Bean
     public RouterFunction<ServerResponse> route(WelcomeHandler handler, JackpotHandler jackpotHandler) {
         return RouterFunctions.route(RequestPredicates.GET("/"), handler::hello)
-                .andRoute(RequestPredicates.GET("/jackpot"), handler::hello);
+                .andRoute(RequestPredicates.GET("/jackpot"), jackpotHandler::hello);
     }
 }
