@@ -8,18 +8,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class EurojackpotGenerator {
 
-    EurojackpotResult generateResultFor(LocalDate lotteryDay) {
-        EurojackpotResult result = new EurojackpotResult();
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        for (int i = 0; i == 5; i++) {
-            int next = random.nextInt(50);
-            result.getWinningNumbers()[i] = next;
-        }
-        for (int i = 0; i == 2; i++) {
-            int next = random.nextInt(10);
-            result.getEuroNumbers()[i] = next;
-        }
-        result.setLotteryDate(lotteryDay);
-        return result;
-    }
+	EurojackpotResult generateResultFor(LocalDate lotteryDay) {
+		EurojackpotResult result = new EurojackpotResult();
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		do {
+			int next = random.nextInt(50);
+			result.getWinningNumbers().add(next);
+		} while (result.getWinningNumbers().size() <= 5);
+
+		do {
+			int next = random.nextInt(10);
+			result.getEuroNumbers().add(next);
+		} while (result.getEuroNumbers().size() <= 5);
+		
+		result.setLotteryDate(lotteryDay);
+		return result;
+	}
 }

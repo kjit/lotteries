@@ -33,8 +33,8 @@ public class EurojackpotServiceTest {
         EurojackpotResult r = new EurojackpotResult();
         LocalDate currentDate = LocalDate.now();
         r.setLotteryDate(currentDate);
-        r.getEuroNumbers()[0] = 2;
-        r.getEuroNumbers()[1] = 4;
+        r.getEuroNumbers().add(2);
+        r.getEuroNumbers().add(4);
         resultsValues.add(r);
         Mockito.when(dao.getResults()).thenReturn(resultsValues);
 
@@ -45,11 +45,8 @@ public class EurojackpotServiceTest {
 
         assertThat(serviceResult).anySatisfy(results -> {
             assertThat(results.getLotteryDate()).isEqualTo(currentDate);
-            assertThat(results.getEuroNumbers()[0]).isEqualTo(2);
+            assertThat(results.getEuroNumbers()).contains(2);
         });
-
-        assertThat(serviceResult).extracting(EurojackpotResult::getEuroNumbers)
-                .containsExactly(new int[]{2, 4});
 
         assertThat(serviceResult.get(0)).satisfies(results ->
                 assertThat(results.getEuroNumbers())

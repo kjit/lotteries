@@ -1,14 +1,16 @@
 package com.github.kjit.lotteries.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EurojackpotResult {
 
     private LocalDate lotteryDate;
 
-    private int[] winningNumbers = new int[5];
+    private Set<Integer> winningNumbers = new HashSet<>(5);
 
-    private int[] euroNumbers = new int[2];
+    private Set<Integer> euroNumbers = new HashSet<>(2);
 
     public LocalDate getLotteryDate() {
         return lotteryDate;
@@ -18,11 +20,11 @@ public class EurojackpotResult {
         this.lotteryDate = lotteryDate;
     }
 
-    public int[] getWinningNumbers() {
+    public Set<Integer> getWinningNumbers() {
         return winningNumbers;
     }
 
-    public int[] getEuroNumbers() {
+    public Set<Integer> getEuroNumbers() {
         return euroNumbers;
     }
 }

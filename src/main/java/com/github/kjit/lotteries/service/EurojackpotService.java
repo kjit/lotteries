@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 public class EurojackpotService {
 
     private EurojackpotDao dao;
+    private EurojackpotGenerator generator;
 
-    public EurojackpotService(@Autowired EurojackpotDao dao) {
+    public EurojackpotService(@Autowired EurojackpotDao dao, @Autowired EurojackpotGenerator generator) {
         this.dao = dao;
+        this.generator = generator;
     }
 
     public Optional<EurojackpotResult> findByDate(LocalDate lotteryDate) {
@@ -34,6 +36,10 @@ public class EurojackpotService {
         return dao.getResults().stream()
                 .filter(ejpR -> ejpR.getLotteryDate().isAfter(boundary))
                 .collect(Collectors.toList());
+    }
+    
+    public EurojackpotResult predictNewResults(LocalDate lotteryDay) {
+    	return generator.generateResultFor(lotteryDay);
     }
 
     private boolean isBetween(LocalDate ld, LocalDate startDate, LocalDate endDate) {
