@@ -3,6 +3,8 @@ package com.github.kjit.lotteries.service;
 import com.github.kjit.lotteries.dao.EurojackpotDao;
 import com.github.kjit.lotteries.model.EurojackpotResult;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,8 +44,18 @@ public class EurojackpotService {
     	return generator.generateResultFor(lotteryDay);
     }
 
+    // TODO Item 42
+    List<EurojackpotResult> sortByDate(List<EurojackpotResult> list) {
+        Collections.sort(list, Comparator.comparing(EurojackpotResult::getLotteryDate));
+        return list;
+    }
+
+
     private boolean isBetween(LocalDate ld, LocalDate startDate, LocalDate endDate) {
         return ld.isEqual(startDate) || ld.isEqual(endDate) ||
                 (ld.isAfter(startDate) && ld.isBefore(endDate));
+
     }
+
+
 }

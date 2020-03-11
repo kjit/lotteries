@@ -26,7 +26,7 @@ public class EurojackpotResultAssert extends AbstractAssert<EurojackpotResultAss
     public EurojackpotResultAssert hasEuroNumbers(int x1, int x2) {
         isNotNull();
 
-        Assertions.assertThat(actual.getEuroNumbers()).containsExactly(x1, x2);
+        Assertions.assertThat(actual.getEuroNumbers()).contains(x1, x2);
         return this;
     }
 }
