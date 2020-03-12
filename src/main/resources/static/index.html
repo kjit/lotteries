@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>EuroJackpot page</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/theme.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Euro Jackpot</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container theme-showcase" role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>Eurojackpot</h1>
+        <p>The goal is to match 5 correct numbers out of 50 plus another 2 supplementary numbers out of another 10; the odds of winning the jackpot are 1:95,344,200.</p>
+    </div>
+
+
+    <div class="page-header">
+        <h1>Numbers</h1>
+    </div>
+    <p>
+        <button type="button" class="btn btn-lg btn-primary">Primary</button>
+
+        <button type="button" id="getNewNumbers"  data-loading-text="Fetching..." class="btn btn-lg btn-success">Get new numbers</button>
+
+    </p>
+    <div class="page-header">
+        <h1>Results</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Winning numbers</th>
+                    <th>Euro numbers</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td id="lotteryDate"></td>
+                    <td id="winNumbers"></td>
+                    <td id="euroNumbers"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/axios.js"></script>
+<script>
+    $('#getNewNumbers').on('click', function () {
+        var $btn = $(this).button('loading')
+        // business logic...
+    axios.get('/jackpotWinner')
+        .then(function (response) {
+            console.log(response);
+            $('td#lotteryDate').text(response.data.lotteryDate[0] + '-' + response.data.lotteryDate[1] + '-' + response.data.lotteryDate[2] );
+            $('td#winNumbers').text(response.data.winningNumbers);
+            $('td#euroNumbers').text(response.data.euroNumbers);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+
+        $btn.button('reset')
+    })
+
+</script>
+</body>
+</html>

@@ -12,14 +12,14 @@ public class EurojackpotGenerator {
         EurojackpotResult result = new EurojackpotResult();
         ThreadLocalRandom random = ThreadLocalRandom.current();
         do {
-            int next = random.nextInt(50);
+            int next = 1 + random.nextInt(50);
             result.getWinningNumbers().add(next);
-        } while (result.getWinningNumbers().size() <= 5);
+        } while (result.getWinningNumbers().size() < 5);
 
         do {
-            int next = random.nextInt(10);
+            int next = 1 + random.nextInt(10);
             result.getEuroNumbers().add(next);
-        } while (result.getEuroNumbers().size() <= 5);
+        } while (result.getEuroNumbers().size() < 2);
 
         result.setLotteryDate(lotteryDay);
         return result;
